@@ -45,7 +45,7 @@ API 사용 설정
 
 사용하는 API 는 Cloud SQL API와 Compute Engine API
 
-<br>
+<hr>
 #### c. 서비스계정 만들기
 
 콘솔 왼쪽 메뉴 탭에서 IAM 및 관리자 -> 서비스 계정 선택
