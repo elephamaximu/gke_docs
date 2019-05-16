@@ -262,96 +262,102 @@ python manage.py createsuperuser
 
 ### 3-1 구글 Storage 버킷 생성 및 세팅
 
-**a. 구글 Storage 버킷 생성**
+####a. 구글 Storage 버킷 생성
 
-구글 클라우드 플랫폼에서는 Gunicorn 서버를 사용하여 앱을 배포한다. 
+- 구글 클라우드 플랫폼에서는 Gunicorn 서버를 사용하여 앱을 배포한다. 
 
-하지만 Gunicorn 서버는 정적 파일을 서빙하지 않기 때문에 따로 Cloud Storage를 생성하여 정적파일을 서빙해줘야 한다.
+- 하지만 Gunicorn 서버는 정적 파일을 서빙하지 않기 때문에 따로 Cloud Storage를 생성하여 정적파일을 서빙해줘야 한다.
 
-먼저 버켓을 생성하고 기본적으로 버켓을 공개해놓는다.
+- 먼저 구글 Storage 버킷을 생성하고 기본적으로 버켓을 공개해놓는다.
 
 ```
-# 버켓 생성
 
 gsutil mb gs://<버켓이름>
-```
-
-**b. 구글 Storage 버킷 공개**
-
 
 ```
-# 기본 공개 설정
+
+#### b. 구글 Storage 버킷 공개 설정하기
+
+
+```
 
 gsutil defacl set public-read gs://<버켓이름> 
+
 ```
 
 
 ### 3-2 구글 Storage 버킷으로 djnago static 파일 연동하기
 
-**a. django 어플리케이션 collect static 수행**
+#### a. django 어플리케이션 collect static 수행
 
 django 어플리케이션에서 정적파일을 한 폴더에 모아준다.
 
-`python manage.py collectstatic`
+```
+
+python manage.py collectstatic
+
+```
+
+#### b. django 어플리케이션 static 폴더를 Storage 버킷 static 폴더로 업로드
+
+- 만약 settings.py 를 
+
+- STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')로 설정 했다면
+
+```
+
+gsutil rsync -R static_root/ gs://<버킷이름>/static
+
+```
+
+- 클라우드 콘솔 왼쪽 메뉴 탭에서 Storage -> 브라우저 클릭
+
+- 해당 버킷과 업로드 된 static 파일 확인
 
 
-**b. django 어플리케이션 static 폴더를 Storage 버킷 static 폴더로 업로드**
+#### c. django 어플리케이션 settings.py STATIC_URL 수정
 
-만약 settings.py 
+```
 
-`STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')`
+STATIC_URL="http://storage.googleapis.com/<버킷이름>/static/"
 
-로 설정 했다면
+```
 
-`gsutil rsync -R static_root/ gs://<버킷이름>/static`
+#### d. 기타 settings.py 수정 및 로컬에서 서버실행
 
-클라우드 콘솔 왼쪽 메뉴 탭에서 Storage -> 브라우저 클릭
+```
 
-해당 버킷과 업로드 된 static 파일 확인
+DEBUG = True
 
+ALLOWED_HOSTS = ['*']
 
-**c. django 어플리케이션 settings.py STATIC_URL 수정**
+```
 
-`STATIC_URL="http://storage.googleapis.com/<버킷이름>/static/"`
+```
 
+python manage.py runserver
 
-**d. 기타 settings.py 수정 및 로컬에서 서버실행**
+```
 
-`DEBUG = True`
+- 실행이 되면 로컬에서 django 어플리케이션이 돌지만 데이터베이스는 구글 클라우드 mysql과 연동 되어 있고
 
-`ALLOWED_HOSTS = ['*']`
-
-`python manage.py runserver`
-
-로컬에서 django 어플리케이션이 돌지만 
-
-데이터베이스는 구글 클라우드 mysql과 연동 되어 있고
-
-Static file 은 구글 클라우드 storage 에서 전송 해주는 상태이다.
+- Static file 은 구글 클라우드 storage 에서 전송 해주는 상태이다.
 
 
 # 4. 정적(static) 파일 스토리지 CORS 헤더 삽입
 
 ### 4-1 Cors-json
 
-구글 클라우드 스토리지에서 내 django 어플리케이션으로 정적 파일을 전송할 때
+- 구글 클라우드 스토리지에서 내 django 어플리케이션으로 정적 파일을 전송할 때 CORS(Cross-Origin Resource Sharing) 정책에 의해 파일 전송이 안되는 경우가 생길 수 있다.
 
-CORS(Cross-Origin Resource Sharing) 정책에 의해 파일 전송이 안되는 경우가 생길 수 있다.
+- 이 때에는 웹 브라우저가 사용하는 정보를 읽을 수 있도록 허가된 출처 집합을 서버에게 알려주도록 허용하는 HTTP 헤더를 추가해 줘야 한다.
 
-이 때에는 웹 브라우저가 사용하는 정보를 읽을 수 있도록 허가된 출처 집합을 서버에게 알려주도록 허용하는 
+- django 어플리케이션 폴더 안에 cors-json-file.json 파일은 작성해 주고 내 클라우드 스토리지 해당 버킷에 작성한 cors-json-file을 적용해 줘야 한다.
 
-HTTP 헤더를 추가해 줘야 한다.
-
-django 어플리케이션 폴더 안에 cors-json-file.json 파일은 작성해 주고 
-
-내 클라우드 스토리지 해당 버킷에 작성한 cors-json-file을 적용해 줘야 한다.
-
-
-**a. cors-json-file 작성** 
-
-django 어플리케이션 폴더 안에 cors-json-file.json 작성
+#### a. cors-json-file 작성
 
 ```
+
 [
     {
 
@@ -360,34 +366,29 @@ django 어플리케이션 폴더 안에 cors-json-file.json 작성
     
     }
 ]
+
 ```
 
 
-**b. 클라우드 스토리지 버킷에 작성한 cors-json-file 적용**
+#### b. 클라우드 스토리지 버킷에 작성한 cors-json-file 적용
 
 cmd창에서 cors-json-file.json 파일이 위치한 곳에서
 
 ```
-# 버킷에 json 파일 적용하기
 
 gsutil cors set cors-json-file.json gs://<버킷이름>
-```
-
 
 ```
+
+```
+
 # 버킷에 적용된 cors 내용 확인하기
-
 gsutil cors get gs://<버킷이름>
+
 ```
 
 
 # 5. Kubernetes 엔진 클러스터 환경 준비하기
-
-
-**------------------ 로컬 코드를 도커 이미지화해서 GKE에 배포 하기 위해서 필요한 파일은 3개 이다. ---------------**
-
-**(1)Dockerfile (2)앱이름.yaml (3)requirements.txt**
-
 
 ### 5-1 Kubernetes 엔진 클러스터 생성하기
 
