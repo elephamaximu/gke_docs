@@ -5,7 +5,7 @@ ENV PATH /env/bin:$PATH
 
 ADD requirements.txt /app/requirements.txt
 RUN /env/bin/pip install --upgrade pip && /env/bin/pip install -r /app/requirements.txt
-# RUN /env/bin/python3 aa.py
+
 ADD . /app
 
-CMD gunicorn -b :$PORT ttsProject.wsgi --timeout=300
+CMD gunicorn -b :$PORT 장고프로젝트이름.wsgi --timeout=300

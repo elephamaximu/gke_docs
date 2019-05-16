@@ -1,19 +1,19 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: maratron
+  name: appname
   labels:
-    app: maratron
+    app: appname
 spec:
   replicas: 3
   template:
     metadata:
       labels:
-        app: maratron
+        app: appname
     spec:
       containers:
-      - name: maratron
-        image: gcr.io/fair-gradient-235611/maratron
+      - name: appname
+        image: gcr.io/[projectID]/[appname]
         imagePullPolicy: Always
         env:
             - name: DATABASE_USER
@@ -32,7 +32,7 @@ spec:
       - image: b.gcr.io/cloudsql-docker/gce-proxy:1.05
         name: cloudsql-proxy
         command: ["/cloud_sql_proxy", "--dir=/cloudsql",
-                  "-instances=fair-gradient-235611:asia-northeast1:maratrong=tcp:3306",
+                  "-instances=[ConnectionName]=tcp:3306",
                   "-credential_file=/secrets/cloudsql/credentials.json"]
         volumeMounts:
           - name: cloudsql-oauth-credentials
@@ -58,13 +58,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: maratron
+  name: appname
   labels:
-    app: maratron
+    app: appname
 spec:
   type: LoadBalancer
   ports:
   - port: 80
     targetPort: 8080
   selector:
-    app: maratron
+    app: appname
