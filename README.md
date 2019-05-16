@@ -286,7 +286,50 @@ Static file 은 구글 클라우드 storage 에서 전송 해주는 상태이다
 
 ### 4-1 Cors-json
 
-a
+구글 클라우드 스토리지에서 내 django 어플리케이션으로 정적 파일을 전송할 때
+
+CORS(Cross-Origin Resource Sharing) 정책에 의해 파일 전송이 안되는 경우가 생길 수 있다.
+
+이 때에는 웹 브라우저가 사용하는 정보를 읽을 수 있도록 허가된 출처 집합을 서버에게 알려주도록 허용하는 
+
+HTTP 헤더를 추가해 줘야 한다.
+
+django 어플리케이션 폴더 안에 cors-json-file.json 파일은 작성해 주고 
+
+내 클라우드 스토리지 해당 버킷에 작성한 cors-json-file을 적용해 줘야 한다.
+
+
+**a. cors-json-file 작성** 
+
+django 어플리케이션 폴더 안에 cors-json-file.json 작성
+
+`
+[
+    {
+      "origin": ["*"],
+      "method": ["*"]
+    }
+]
+`
+
+
+**b. 클라우드 스토리지 버킷에 작성한 cors-json-file 적용**
+
+cmd창에서 cors-json-file.json 파일이 위치한 곳에서
+
+```
+# 버킷에 json 파일 적용하기
+
+gsutil cors set cors-json-file.json gs://<버킷이름>
+```
+
+
+```
+# 버킷에 적용된 cors 내용 확인하기
+
+gsutil cors get gs://<버킷이름>
+```
+
 
 # 5. 로컬코드를 도커 이미지화 
 
