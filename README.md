@@ -28,7 +28,7 @@
 
 #### a. 구글 클라우드 플랫폼 회원 가입
 
-**[구글 클라우드 플랫폼 페이지->](https://cloud.google.com/?hl=ko)**
+  **[구글 클라우드 플랫폼 페이지->](https://cloud.google.com/?hl=ko)**
 
 #### b. 프로젝트 만들기
 
@@ -37,7 +37,7 @@
 - 프로젝트 결제 설정
 - API 사용 설정
 
-**[API 사용 설정 안내 페이지->](https://cloud.google.com/apis/docs/enable-disable-apis?hl=ko)**
+  **[API 사용 설정 안내 페이지->](https://cloud.google.com/apis/docs/enable-disable-apis?hl=ko)**
 
 - 사용하는 API 는 Cloud SQL API와 Compute Engine API
 
@@ -47,7 +47,7 @@
 
 - 역할 선택 
 
-(1). Cloud SQL관리자 (2). storage 저장소 관리자 (3). Kubernetes Engin 관리자
+  (1). Cloud SQL관리자 (2). storage 저장소 관리자 (3). Kubernetes Engin 관리자
 
 - json 형식으로 key 로컬에 다운로드
 
@@ -55,9 +55,9 @@
 
 #### a. Cloud SDK 로컬에 설치**
 
-**[클라우드 SDK 설치 페이지 ->](https://cloud.google.com/sdk/downloads?hl=ko)**
+  **[클라우드 SDK 설치 페이지 ->](https://cloud.google.com/sdk/downloads?hl=ko)**
 
-**[윈도우 대화형 설치 프로그램](https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe?hl=ko)** 다운로드
+  **[윈도우 대화형 설치 프로그램](https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe?hl=ko)** 다운로드
 
 - 시스템의 Python 2가 Python 2.7.9 이상의 출시 버전으로 설치되지 않은 경우 Bundled Python(Python 포함) 설치 옵션 선택
 
@@ -68,7 +68,7 @@
 
 #### b. 로컬 os 환경변수에 서비스계정 인증해놓기
 
-[1-1 C](#1-1-%EA%B5%AC%EA%B8%80-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC-%EA%B3%84%EC%A0%95-%EC%84%A4%EC%A0%95)의 서비스 계정 만들기에서 다운 받은 json 파일을 os 환경변수에 추가해서 서비스 계정을 인증
+- [1-1 C](#1-1-%EA%B5%AC%EA%B8%80-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC-%EA%B3%84%EC%A0%95-%EC%84%A4%EC%A0%95)의 서비스 계정 만들기에서 다운 받은 json 파일을 os 환경변수에 추가해서 서비스 계정을 인증
 
 
 **[인증 시작하기 페이지 ->](https://cloud.google.com/docs/authentication/getting-started?hl=ko)**
