@@ -28,21 +28,38 @@
 
 **a. 구글 클라우드 플랫폼 회원 가입**
 
-**[구글 클라우드 플랫폼 ->](https://cloud.google.com/?hl=ko)**
+**[구글 클라우드 플랫폼 페이지->](https://cloud.google.com/?hl=ko)**
 
 **b. 프로젝트 만들기**
 
-콘솔에서 상단의 드롭다운 메뉴에서 프로젝트 만들기를 선택합니다.
+콘솔에서 상단의 드롭다운 메뉴에서 프로젝트 만들기를 선택.
 
-프로젝트 ID(프로젝트 이름과 다를 수 있음)를 메모해 둡니다. 프로젝트 ID는 명령어와 구성에 사용됩니다.
+프로젝트 ID(프로젝트 이름과 다를 수 있음)를 메모. 프로젝트 ID는 명령어와 구성에 사용.
 
 **c. 서비스계정 만들기**
 
-SQL, STORAGE, KUBERNETES 검색해서 최고 권한 부여
+왼쪽 탭에서 IAM 및 관리자 - 서비스 계정 선택
+
+역할 선택 
+(1) Cloud SQL관리자
+(2) storage 저장소 관리자
+(3) Kubernetes Engin 관리자
+
+json 형식으로 key 로컬에 다운로드
 
 ### 1-2 구글 플랫폼 로컬 연동 환경 구축
 
 **a. Cloud SDK 로컬에 설치**
+
+**[클라우드 SDK 설치 페이지 ->](https://cloud.google.com/sdk/downloads?hl=ko)**
+
+**[윈도우 대화형 설치 프로그램](https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe?hl=ko)** 다운로드
+
+시스템의 Python 2가 Python 2.7.9 이상의 출시 버전으로 설치되지 않은 경우 Bundled Python(Python 포함) 설치 옵션 선택
+
+설치 프로그램에서 터미널 창을 시작하고 gcloud init 명령어 실행
+
+`gcloud init`
 
 **b. 로컬 os 환경변수에 서비스계정 인증해놓기**
 
