@@ -261,6 +261,10 @@ django 어플리케이션에서 정적파일을 한 폴더에 모아준다.
 
 `gsutil rsync -R static_root/ gs://<버킷이름>/static`
 
+클라우드 콘솔 왼쪽 메뉴 탭에서 Storage -> 브라우저 클릭
+
+해당 버킷과 업로드 된 static 파일 확인
+
 
 **c. django 어플리케이션 settings.py STATIC_URL 수정**
 
@@ -303,18 +307,16 @@ django 어플리케이션 폴더 안에 cors-json-file.json 파일은 작성해 
 
 django 어플리케이션 폴더 안에 cors-json-file.json 작성
 
-`
+```
 [
-
     {
 
       "origin": ["*"],
       "method": ["*"]
     
     }
-
 ]
-`
+```
 
 
 **b. 클라우드 스토리지 버킷에 작성한 cors-json-file 적용**
