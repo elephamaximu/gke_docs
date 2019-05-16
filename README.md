@@ -1,4 +1,6 @@
-# DOCKER, GKE, jenkins x 통한 django 어플리케이션 클라우드 배포와 CI|CD 과정 정리
+# DOCKER, GKE, jenkins x 통한 django 어플리케이션 클라우드 배포와 CI|CD 과정
+
+**[참조 문서 - 구글 공식 다큐먼트](https://cloud.google.com/python/django/kubernetes-engine)**
 
 ### 순서
 
@@ -25,9 +27,14 @@
 ### 1-1 구글 클라우드 플랫폼 계정 설정
 a. 구글 클라우드 플랫폼 가입
 
+[구글 클라우드 플랫폼]()
+
 b. 프로젝트 만들기
 
+[구글 클라우드]
+
 c. 서비스계정 만들기
+
 SQL, STORAGE, KUBERNETES 검색해서 최고 권한 부여
 
 ### 1-2 구글 플랫폼 로컬 연동 환경 구축
