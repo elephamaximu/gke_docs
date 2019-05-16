@@ -36,8 +36,9 @@
 - 프로젝트 ID(프로젝트 이름과 다를 수 있음)를 메모. 프로젝트 ID는 명령어와 구성에 사용.
 - 프로젝트 결제 설정
 
-  **[프로젝트 결제 설정 및 수정 안내 페이지->](https://cloud.google.com/billing/docs/how-to/modify-project?hl=ko)
-- API 사용 설정**
+  **[프로젝트 결제 설정 및 수정 안내 페이지->](https://cloud.google.com/billing/docs/how-to/modify-project?hl=ko)**
+
+- API 사용 설정
 
   **[API 사용 설정 안내 페이지->](https://cloud.google.com/apis/docs/enable-disable-apis?hl=ko)**
 
@@ -78,7 +79,7 @@ gcloud init
 - [1-1 C](#1-1-%EA%B5%AC%EA%B8%80-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC-%EA%B3%84%EC%A0%95-%EC%84%A4%EC%A0%95)의 서비스 계정 만들기에서 다운 받은 json 파일을 os 환경변수에 추가해서 서비스 계정을 인증
 
 
-**[인증 시작하기 안내 페이지 ->](https://cloud.google.com/docs/authentication/getting-started?hl=ko)**
+- **[인증 시작하기 안내 페이지 ->](https://cloud.google.com/docs/authentication/getting-started?hl=ko)**
 
 - 윈도우 : cmd 창에서 
 
@@ -119,7 +120,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/[FILE_NAME].json"
 
 - 다른 이름으로 저장 하기 해서 `cloud_sql_proxy.exe` 로 이름을 바꿔서 다운
 
-- **sql 프록시 다운 맥
+- sql 프록시 다운 맥
 
 ```
 curl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64
