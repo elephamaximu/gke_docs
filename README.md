@@ -337,22 +337,35 @@ gsutil cors get gs://<버킷이름>
 ```
 
 
+# 5. Kubernetes 엔진 클러스터 환경 준비하기
+
 
 **------------------ 로컬 코드를 도커 이미지화해서 GKE에 배포 하기 위해서 필요한 파일은 3개 이다. ---------------**
 
 **(1)Dockerfile (2)앱이름.yaml (3)requirements.txt**
 
 
-
-# 5. Kubernetes 엔진 클러스터 환경 준비하기
-
 ### 5-1 Kubernetes 엔진 클러스터 생성하기
 
-a.
+**a. GKE 초기화**
 
-b.
+콘솔에서 왼쪽 메뉴 탭 Kubernetes Engine -> 클러스터 클릭
 
-c.
+'Kubernetes Engine을 준비하는 중이며 1분 이상 걸릴 수 있습니다' 
+
+메시지가 사라질 때까지 기다림.
+
+**b. GKE 생성**
+
+cmd 창에서 GKE 클러스터 생성
+
+```
+gcloud container clusters create <클러스터이름> --scopes "https://www.googleapis.com/auth/userinfo.email","cloud-platform" --num-nodes 4 --zone "asia-northeast1-a"
+```
+
+**c. gcloud와 kubectl 상호작용 check**
+
+
 
 ### 5-2 GKE 앱과 Cloud SQL간의 통신 환경 준비하기
 
