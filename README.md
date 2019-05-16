@@ -16,13 +16,17 @@
 
 ### 1-1 구글 클라우드 플랫폼 계정 설정
 a. 구글 클라우드 플랫폼 가입
+
 b. 프로젝트 만들기
+
 c. 서비스계정 만들기
 SQL, STORAGE, KUBERNETES 검색해서 최고 권한 부여
 
 ### 1-2 구글 플랫폼 로컬 연동 환경 구축
 a. Cloud SDK 로컬에 설치
+
 b. 로컬 os 환경변수에 서비스계정 인증해놓기
+
 c. vscode 플러그인 (선택사항)
 
 # 2. 로컬 코드와 구글 클라우드 플랫폼 Mysql 연동 테스트
@@ -30,25 +34,34 @@ c. vscode 플러그인 (선택사항)
 ### 2-1 구글 클라우드 플랫폼 MYsql 서버와 local 서버 연동
 
 a. SQL 프록시 설치(로컬과 클라우드 데이터 베이스 연동 프로그램)
+
 b. Cloud SQL 인스턴스 생성
+
 c. connectionName 확인
+
 d. SQL 프록시를 이용하여 로컬과 클라우드 데이터 베이스 연동
+
 e. 데이터베이스 생성 및 사용자 생성
+
 f. 로컬 os 환경변수에 데이터 베이서 ID와 PASSWORD 저장하기
 
 ### 2-2 django 어플리케이션 세팅
 
 a. django 어플리케이션 settings.py 데이터 베이스 코드 수정
+
 b. django 어플리케이션 superuser 생성
 
 # 3. 로컬 코드와 구글 클라우드 플랫폼 Storage 연동을 통한 static 파일 클라우드화 테스트
 
 ### 3-1 구글 Storage 버킷 생성 및 세팅
 a. 구글 Storage 버킷 생성
+
 b. 구글 Storage 버킷 공개
 
 ### 3-2 구글 Storage 버킷으로 djnago static 파일 연동하기
 a. django 어플리케이션 collect static 수행
+
 b. django 어플리케이션 static 폴더를 Storage 버킷 static 폴더로 업로드
+
 c. django 어플리케이션 settings.py STATIC_URL 수정
 
