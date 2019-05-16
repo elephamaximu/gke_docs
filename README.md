@@ -363,17 +363,38 @@ cmd 창에서 GKE 클러스터 생성
 gcloud container clusters create <클러스터이름> --scopes "https://www.googleapis.com/auth/userinfo.email","cloud-platform" --num-nodes 4 --zone "asia-northeast1-a"
 ```
 
+콘솔창에서 클러스터가 생성 되었는지 확인
+
+
 **c. gcloud와 kubectl 상호작용 check**
 
+cmd 창에서 
+
+`gcloud container clusters get-credentials <클러스터이름> --zone "asia-northeast1-a"`
 
 
 ### 5-2 GKE 앱과 Cloud SQL간의 통신 환경 준비하기
 
-a.
+GKE 앱과 Cloud SQL 간의 통신을 위한 secret 생성
 
-b.
+**a. 인스턴스 수준 액세스(연결)**
 
-c.
+```
+kubectl create secret generic cloudsql-oauth-credentials --from-file=credentials.json=[PATH_TO_CREDENTIAL_FILE].json
+```
+
+CREDENTIAL_FILE은 **[1-1 C](#1-1-%EA%B5%AC%EA%B8%80-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC-%EA%B3%84%EC%A0%95-%EC%84%A4%EC%A0%95)**의 서비스 계정 만들기에서 다운 받은 json
+
+
+**b. 데이터베이스 액세스용**
+
+```
+kubectl create secret generic cloudsql --from-literal=username=[PROXY_USERNAME] --from-literal=password=[PASSWORD]
+```
+
+[PROXY_USERNAME] = 데이터베이스 아이디
+[PASSWORD] = 데이터베이스 비밀번호
+
 
 ### 5-3 도커 이미지 빌드하기
 
