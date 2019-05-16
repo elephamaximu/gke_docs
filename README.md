@@ -645,7 +645,7 @@ kubectl get services 앱이름
 #### b.
 
 
-### 7-3 구글 클라우드 콘솔 Stackdriver 에서 로깅
+### 7-3 구글 클라우드 콘솔 Stackdriver 에서 로깅 
 
 #### a.
 
