@@ -129,6 +129,7 @@ Mysql 선택
 
 생성
 
+
 **c. connectionName 확인**
 
 생성 된 후 해당 인스턴스 ID를 클릭하여 관리 화면에 접속
@@ -138,6 +139,7 @@ Mysql 선택
 `fair-gradient-xxxx:asia-northeast1:xxxx` 복사 해 둠
 
 ConnectionName 이라 해서 자주 사용된다
+
 
 **d. SQL 프록시를 이용하여 로컬과 클라우드 데이터 베이스 연동**
 
@@ -149,17 +151,35 @@ cmd 창에서 다운 받은 cloud_sql_proxy.exe 파일 위치로 이동 한 후
 
 로컬 3306 포트에 이미 Mysql 서버가 돌고 있으면 충돌이 나므로 로컬 Mysql 서버는 꺼놓고 실행한다.
 
+
 **e. 데이터베이스 생성 및 사용자 생성**
 
+콘솔 SQL -> 내 인스턴스 ID 로 들어와서 상단 데이터베이스 탭으로 들어간다
+
+데이터베이스 만들기를 클릭하여 데이터베이스를 생성해준다.
+
+상단 사용자 탭으로 들어가서 사용자를 생성 할 수 있다.(root만 사용시 skip 가능)
 
 
-**f. 로컬 os 환경변수에 데이터 베이서 ID와 PASSWORD 저장하기**
+**f. 로컬 os 환경변수에 구글 SQL 인스턴스 ID와 PASSWORD 저장하기**
+
+위에서 만든 Mysql 인스턴스 내 데이터베이스 접속 가능한 ID와 PASSWORD를 로컬 os 환경변수로 지정해준다
+
+사용자를 생성했다면 사용자 ID와 PASSWORD, 생성하지 않았다면 ID=root, PASSWORD=인스턴스 생성시 비밀번호
+
+cmd 창에서
+
+`set DATABASE_USER=<your-database-user>`
+`set DATABASE_PASSWORD=<your-database-password>`
+
 
 ### 2-2 django 어플리케이션 세팅
 
 **a. django 어플리케이션 settings.py 데이터 베이스 코드 수정**
 
+
 **b. django 어플리케이션 superuser 생성**
+
 
 # 3. 로컬 코드와 구글 클라우드 플랫폼 Storage 연동을 통한 static 파일 클라우드화 테스트
 
