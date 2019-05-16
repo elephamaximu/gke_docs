@@ -151,6 +151,8 @@ cmd 창에서 다운 받은 cloud_sql_proxy.exe 파일 위치로 이동 한 후
 
 로컬 3306 포트에 이미 Mysql 서버가 돌고 있으면 충돌이 나므로 로컬 Mysql 서버는 꺼놓고 실행한다.
 
+실행 후 로컬 에서 구글 클라우드 SQL을 사용하는 동안에는 계속 켜둔다.
+
 
 **e. 데이터베이스 생성 및 사용자 생성**
 
@@ -170,6 +172,7 @@ cmd 창에서 다운 받은 cloud_sql_proxy.exe 파일 위치로 이동 한 후
 cmd 창에서
 
 `set DATABASE_USER=<your-database-user>`
+
 `set DATABASE_PASSWORD=<your-database-password>`
 
 
@@ -193,27 +196,83 @@ cmd 창에서
 위 코드에서 
 
 `os.getenv('DATABASE_USER')`
+
 `os.getenv('DATABASE_PASSWORD')`
 
 는 로컬 환경변수에 저장한 데이터베이스 아이디와 비밀번호가 자동으로 들어가게 된다
 
+로컬 django 어플리케이션 위치로 가서 데이터베이스 migrate 실행 해준다
+
+`python manage.py migrate`
 
 **b. django 어플리케이션 superuser 생성**
+
+migrate를 통해 구글 클라우드 SQL과 내 로컬 django 어플리케이션이 연동 되어 있으므로
+
+django 어플리케이션 admin 창에서 사용할 superuser를 생성해준다
+
+`python manage.py createsuperuser`
 
 
 # 3. 로컬 코드와 구글 클라우드 플랫폼 Storage 연동을 통한 static 파일 클라우드화 테스트
 
 ### 3-1 구글 Storage 버킷 생성 및 세팅
+
 **a. 구글 Storage 버킷 생성**
+
+구글 클라우드 플랫폼에서는 Gunicorn 서버를 사용하여 앱을 배포한다. 
+
+하지만 Gunicorn 서버는 정적 파일을 서빙하지 않기 때문에 따로 Cloud Storage를 생성하여 정적파일을 서빙해줘야 한다.
+
+먼저 버켓을 생성하고 기본적으로 버켓을 공개해놓는다.
+
+```
+# 버켓 생성
+
+gsutil mb gs://<버켓이름>
+```
 
 **b. 구글 Storage 버킷 공개**
 
+
+```
+# 기본 공개 설정
+
+gsutil defacl set public-read gs://<버켓이름> 
+```
+
+
 ### 3-2 구글 Storage 버킷으로 djnago static 파일 연동하기
-a. django 어플리케이션 collect static 수행
 
-b. django 어플리케이션 static 폴더를 Storage 버킷 static 폴더로 업로드
+**a. django 어플리케이션 collect static 수행**
 
-c. django 어플리케이션 settings.py STATIC_URL 수정
+django 어플리케이션에서 정적파일을 한 폴더에 모아준다.
+
+`python manage.py collectstatic`
+
+
+**b. django 어플리케이션 static 폴더를 Storage 버킷 static 폴더로 업로드**
+
+만약 settings.py 
+
+`STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')`
+
+로 설정 했다면
+
+`gsutil rsync -R static_root/ gs://<버킷이름>/static`
+
+
+**c. django 어플리케이션 settings.py STATIC_URL 수정**
+
+`STATIC_URL="http://storage.googleapis.com/<버킷이름>/static/"`
+
+
+**d. 기타 settings.py 수정**
+
+`DEBUG = True`
+
+`ALLOWED_HOSTS = ['*']`
+
 
 # 4. 정적(static) 파일 스토리지 CORS 헤더 삽입
 
