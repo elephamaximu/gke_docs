@@ -63,6 +63,19 @@ json 형식으로 key 로컬에 다운로드
 
 **b. 로컬 os 환경변수에 서비스계정 인증해놓기**
 
+**[1-1 c](#1-1-%EA%B5%AC%EA%B8%80-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC-%EA%B3%84%EC%A0%95-%EC%84%A4%EC%A0%95)** 서비스 계정 만들기에서 다운 받은 json 파일을 os 환경변수에 추가해서 서비스 계정을 인증
+
+
+**[인증 시작하기 페이지 ->](https://cloud.google.com/docs/authentication/getting-started?hl=ko)**
+
+cmd 창에서 
+
+`set GOOGLE_APPLICATION_CREDENTIALS=[PATH]`
+
+[PATH] 안에 전체 경로와 json 이름을 넣어줌 
+
+예) C:\xxx-xxx.json
+
 **c. vscode 플러그인 (선택사항)**
 
 # 2. 로컬 코드와 구글 클라우드 플랫폼 Mysql 연동 테스트
