@@ -26,11 +26,11 @@
 
 ### 1-1 구글 클라우드 플랫폼 계정 설정
 
-#### 1. 구글 클라우드 플랫폼 회원 가입
+#### a. 구글 클라우드 플랫폼 회원 가입
 
-  **[구글 클라우드 플랫폼 페이지->](https://cloud.google.com/?hl=ko)**
+- **[구글 클라우드 플랫폼 페이지->](https://cloud.google.com/?hl=ko)**
 
-#### 2. 프로젝트 만들기
+#### b. 프로젝트 만들기
 
 - 콘솔에서 상단의 드롭다운 메뉴에서 프로젝트 만들기를 선택.
 - 프로젝트 ID(프로젝트 이름과 다를 수 있음)를 메모. 프로젝트 ID는 명령어와 구성에 사용.
@@ -41,7 +41,7 @@
 
 - 사용하는 API 는 Cloud SQL API와 Compute Engine API
 
-#### 3. 서비스계정 만들기
+#### c. 서비스계정 만들기
 
 - 콘솔 왼쪽 메뉴 탭에서 IAM 및 관리자 -> 서비스 계정 선택
 
@@ -53,11 +53,11 @@
 
 ### 1-2 구글 플랫폼 로컬 연동 환경 구축
 
-#### 1. Cloud SDK 로컬에 설치**
+#### a. Cloud SDK 로컬에 설치**
 
-  **[클라우드 SDK 설치 페이지 ->](https://cloud.google.com/sdk/downloads?hl=ko)**
+  - **[클라우드 SDK 설치 페이지 ->](https://cloud.google.com/sdk/downloads?hl=ko)**
 
-  **[윈도우 대화형 설치 프로그램](https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe?hl=ko)** 다운로드
+  - **[윈도우 대화형 설치 프로그램](https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe?hl=ko)** 다운로드
 
 - 시스템의 Python 2가 Python 2.7.9 이상의 출시 버전으로 설치되지 않은 경우 Bundled Python(Python 포함) 설치 옵션 선택
 
@@ -66,7 +66,7 @@
 `gcloud init`
 
 
-#### 2. 로컬 os 환경변수에 서비스계정 인증해놓기
+#### b. 로컬 os 환경변수에 서비스계정 인증해놓기
 
 - [1-1 C](#1-1-%EA%B5%AC%EA%B8%80-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC-%EA%B3%84%EC%A0%95-%EC%84%A4%EC%A0%95)의 서비스 계정 만들기에서 다운 받은 json 파일을 os 환경변수에 추가해서 서비스 계정을 인증
 
@@ -79,7 +79,7 @@
 
 - [PATH] 안에 전체 경로와 json 이름을 쌍따옴표 없이 넣어줌 예) C:\xxx-xxx.json
 
-#### 3. vscode 플러그인 (선택사항)
+#### c. vscode 플러그인 (선택사항)
 
 - vscode 플러그인 검색창에서 
 
