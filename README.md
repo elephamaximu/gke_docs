@@ -30,6 +30,7 @@
 
 **[구글 클라우드 플랫폼 페이지->](https://cloud.google.com/?hl=ko)**
 
+
 **b. 프로젝트 만들기**
 
 콘솔에서 상단의 드롭다운 메뉴에서 프로젝트 만들기를 선택.
@@ -44,9 +45,10 @@ API 사용 설정
 
 사용하는 API 는 Cloud SQL API와 Compute Engine API
 
+
 **c. 서비스계정 만들기**
 
-왼쪽 탭에서 IAM 및 관리자 - 서비스 계정 선택
+콘솔 왼쪽 메뉴 탭에서 IAM 및 관리자 -> 서비스 계정 선택
 
 역할 선택 
 (1) Cloud SQL관리자
@@ -54,6 +56,7 @@ API 사용 설정
 (3) Kubernetes Engin 관리자
 
 json 형식으로 key 로컬에 다운로드
+
 
 ### 1-2 구글 플랫폼 로컬 연동 환경 구축
 
@@ -68,6 +71,7 @@ json 형식으로 key 로컬에 다운로드
 설치 프로그램에서 터미널 창을 시작하고 gcloud init 명령어 실행
 
 `gcloud init`
+
 
 **b. 로컬 os 환경변수에 서비스계정 인증해놓기**
 
@@ -84,6 +88,7 @@ cmd 창에서
 
 예) C:\xxx-xxx.json
 
+
 **c. vscode 플러그인 (선택사항)**
 
 vscode 플러그인 검색창에서 
@@ -98,19 +103,55 @@ vscode 플러그인 검색창에서
 
 설치
 
+
 # 2. 로컬 코드와 구글 클라우드 플랫폼 Mysql 연동 테스트
 
-### 2-1 구글 클라우드 플랫폼 MYsql 서버와 local 서버 연동
+### 2-1 구글 클라우드 플랫폼 Mysql 서버와 local 서버 연동
 
 **a. SQL 프록시 설치(로컬과 클라우드 데이터 베이스 연동 프로그램)**
 
+**[sql 프록시 다운 링크](https://dl.google.com/cloudsql/cloud_sql_proxy_x64.exe)**
+
+다른 이름으로 저장 하기 해서 `cloud_sql_proxy.exe` 로 이름을 바꿔서 다운
+
+
 **b. Cloud SQL 인스턴스 생성**
+
+콘솔 왼쪽 메뉴 탭에서 SQL 클릭
+
+Mysql 선택
+
+인스턴스 ID, 루트 비밀 번호 설정
+
+리전 -> asia-northeast1 선택
+
+데이터베이스 버전 -> MySQL5.7
+
+생성
 
 **c. connectionName 확인**
 
+생성 된 후 해당 인스턴스 ID를 클릭하여 관리 화면에 접속
+
+인스턴스 연결 이름
+
+`fair-gradient-xxxx:asia-northeast1:xxxx` 복사 해 둠
+
+ConnectionName 이라 해서 자주 사용된다
+
 **d. SQL 프록시를 이용하여 로컬과 클라우드 데이터 베이스 연동**
 
+cmd 창에서 다운 받은 cloud_sql_proxy.exe 파일 위치로 이동 한 후
+
+`cloud_sql_proxy.exe -instances="[YOUR_INSTANCE_CONNECTION_NAME]"=tcp:3306`
+
+가운데 [YOUR_INSTANCE_CONNECTION_NAME] 에는 복사 해 놓은 ConnectionName을 붙여 넣는다.
+
+로컬 3306 포트에 이미 Mysql 서버가 돌고 있으면 충돌이 나므로 로컬 Mysql 서버는 꺼놓고 실행한다.
+
 **e. 데이터베이스 생성 및 사용자 생성**
+
+
 
 **f. 로컬 os 환경변수에 데이터 베이서 ID와 PASSWORD 저장하기**
 
