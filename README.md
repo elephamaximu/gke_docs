@@ -262,7 +262,7 @@ python manage.py createsuperuser
 
 ### 3-1 구글 Storage 버킷 생성 및 세팅
 
-####a. 구글 Storage 버킷 생성
+#### a. 구글 Storage 버킷 생성
 
 - 구글 클라우드 플랫폼에서는 Gunicorn 서버를 사용하여 앱을 배포한다. 
 
@@ -602,6 +602,7 @@ spec:
 - 작성한 앱이름.yaml을 이용하여 GKE 리소스 생성
 
 ```
+
 kubectl create -f 앱이름.yaml
 
 ```
