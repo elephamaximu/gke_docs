@@ -35,13 +35,17 @@
 - 콘솔에서 상단의 드롭다운 메뉴에서 프로젝트 만들기를 선택.
 - 프로젝트 ID(프로젝트 이름과 다를 수 있음)를 메모. 프로젝트 ID는 명령어와 구성에 사용.
 - 프로젝트 결제 설정
-- API 사용 설정
+
+  **[프로젝트 결제 설정 및 수정 안내 페이지->](https://cloud.google.com/billing/docs/how-to/modify-project?hl=ko)
+- API 사용 설정**
 
   **[API 사용 설정 안내 페이지->](https://cloud.google.com/apis/docs/enable-disable-apis?hl=ko)**
 
 - 사용하는 API 는 Cloud SQL API와 Compute Engine API
 
 #### c. 서비스계정 만들기
+
+- **[서비스 계정 생성 및 관리 안내 페이지->](https://cloud.google.com/iam/docs/creating-managing-service-accounts?hl=ko)**
 
 - 콘솔 왼쪽 메뉴 탭에서 IAM 및 관리자 -> 서비스 계정 선택
 
@@ -74,75 +78,98 @@ gcloud init
 - [1-1 C](#1-1-%EA%B5%AC%EA%B8%80-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC-%EA%B3%84%EC%A0%95-%EC%84%A4%EC%A0%95)의 서비스 계정 만들기에서 다운 받은 json 파일을 os 환경변수에 추가해서 서비스 계정을 인증
 
 
-**[인증 시작하기 페이지 ->](https://cloud.google.com/docs/authentication/getting-started?hl=ko)**
+**[인증 시작하기 안내 페이지 ->](https://cloud.google.com/docs/authentication/getting-started?hl=ko)**
 
-- cmd 창에서 
+- 윈도우 : cmd 창에서 
 
-`set GOOGLE_APPLICATION_CREDENTIALS=[PATH]`
+```
+# [PATH] 안에 전체 경로와 json 이름을 쌍따옴표 없이 넣어줌 예) C:\xxx-xxx.json
 
-- [PATH] 안에 전체 경로와 json 이름을 쌍따옴표 없이 넣어줌 예) C:\xxx-xxx.json
+set GOOGLE_APPLICATION_CREDENTIALS=[PATH]
+
+```
+
+- 맥&리눅스 : 터미널에서
+
+```
+
+export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/[FILE_NAME].json"
+
+```
+
 
 #### c. vscode 플러그인 (선택사항)
 
-- vscode 플러그인 검색창에서 
+- (1) Docker 0.62
 
-(1) Docker 0.62
+- (2) Kubernetes 1.0.0
 
-(2) Kubernetes 1.0.0
+- (3) Cloud Code 0.0.8
 
-(3) Cloud Code 0.0.8
-
-(4) jx-tools 0.0.45
+- (4) jx-tools 0.0.45
 
 
 # 2. 로컬 코드와 구글 클라우드 플랫폼 Mysql 연동 테스트
 
 ### 2-1 구글 클라우드 플랫폼 Mysql 서버와 local 서버 연동
 
-**a. SQL 프록시 설치(로컬과 클라우드 데이터 베이스 연동 프로그램)**
+#### a. SQL 프록시 설치(로컬과 클라우드 데이터 베이스 연동 프로그램)
 
-**[sql 프록시 다운 링크](https://dl.google.com/cloudsql/cloud_sql_proxy_x64.exe)**
+- **[sql 프록시 다운 링크 윈도우](https://dl.google.com/cloudsql/cloud_sql_proxy_x64.exe)**
 
-다른 이름으로 저장 하기 해서 `cloud_sql_proxy.exe` 로 이름을 바꿔서 다운
+- 다른 이름으로 저장 하기 해서 `cloud_sql_proxy.exe` 로 이름을 바꿔서 다운
 
+- **sql 프록시 다운 맥
 
-**b. Cloud SQL 인스턴스 생성**
+```
+curl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64
 
-콘솔 왼쪽 메뉴 탭에서 SQL 클릭
+chmod +x cloud_sql_proxy
 
-Mysql 선택
+```
 
-인스턴스 ID, 루트 비밀 번호 설정
+#### b. Cloud SQL 인스턴스 생성
 
-리전 -> asia-northeast1 선택
+- 콘솔 왼쪽 메뉴 탭에서 SQL 클릭
 
-데이터베이스 버전 -> MySQL5.7
+- Mysql 선택
 
-생성
+- 인스턴스 ID, 루트 비밀 번호 설정
 
+- 리전 -> asia-northeast1 선택
 
-**c. connectionName 확인**
+- 데이터베이스 버전 -> MySQL5.7
 
-생성 된 후 해당 인스턴스 ID를 클릭하여 관리 화면에 접속
-
-인스턴스 연결 이름
-
-`fair-gradient-xxxx:asia-northeast1:xxxx` 복사 해 둠
-
-ConnectionName 이라 해서 자주 사용된다
+- 생성
 
 
-**d. SQL 프록시를 이용하여 로컬과 클라우드 데이터 베이스 연동**
+#### c. connectionName 확인
 
-cmd 창에서 다운 받은 cloud_sql_proxy.exe 파일 위치로 이동 한 후
+- 생성 된 후 해당 인스턴스 ID를 클릭하여 관리 화면에 접속
 
-`cloud_sql_proxy.exe -instances="[YOUR_INSTANCE_CONNECTION_NAME]"=tcp:3306`
+- 인스턴스 연결 이름
 
-가운데 [YOUR_INSTANCE_CONNECTION_NAME] 에는 복사 해 놓은 ConnectionName을 붙여 넣는다.
+```
+# ConnectionName 이라 해서 자주 사용된다
 
-로컬 3306 포트에 이미 Mysql 서버가 돌고 있으면 충돌이 나므로 로컬 Mysql 서버는 꺼놓고 실행한다.
+fair-gradient-xxxx:asia-northeast1:xxxx
 
-실행 후 로컬 에서 구글 클라우드 SQL을 사용하는 동안에는 계속 켜둔다.
+```
+
+#### d. SQL 프록시를 이용하여 로컬과 클라우드 데이터 베이스 연동
+
+- cmd 창에서 다운 받은 cloud_sql_proxy.exe 파일 위치로 이동 한 후
+
+```
+
+cloud_sql_proxy.exe -instances="[YOUR_INSTANCE_CONNECTION_NAME]"=tcp:3306
+
+```
+- 가운데 [YOUR_INSTANCE_CONNECTION_NAME] 에는 복사 해 놓은 ConnectionName을 붙여 넣는다.
+
+- 로컬 3306 포트에 이미 Mysql 서버가 돌고 있으면 충돌이 나므로 로컬 Mysql 서버는 꺼놓고 실행한다.
+
+- 실행 후 로컬 에서 구글 클라우드 SQL을 사용하는 동안에는 계속 켜둔다.
 
 
 **e. 데이터베이스 생성 및 사용자 생성**
