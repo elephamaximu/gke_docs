@@ -305,10 +305,14 @@ django 어플리케이션 폴더 안에 cors-json-file.json 작성
 
 `
 [
+
     {
+
       "origin": ["*"],
       "method": ["*"]
+    
     }
+
 ]
 `
 
