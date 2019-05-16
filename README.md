@@ -53,7 +53,7 @@
 
 ### 1-2 구글 플랫폼 로컬 연동 환경 구축
 
-#### a. Cloud SDK 로컬에 설치**
+#### a. Cloud SDK 로컬에 설치
 
   - **[클라우드 SDK 설치 페이지 ->](https://cloud.google.com/sdk/downloads?hl=ko)**
 
@@ -63,8 +63,11 @@
 
 - 설치 프로그램에서 터미널 창을 시작하고 gcloud init 명령어 실행
 
-`gcloud init`
+```
 
+gcloud init
+
+```
 
 #### b. 로컬 os 환경변수에 서비스계정 인증해놓기
 
