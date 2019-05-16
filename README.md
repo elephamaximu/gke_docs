@@ -14,7 +14,7 @@
 
 **[5. Kubernetes 엔진 클러스터 생성 환경 준비하기](#5-kubernetes-%EC%97%94%EC%A7%84-%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0-%ED%99%98%EA%B2%BD-%EC%A4%80%EB%B9%84%ED%95%98%EA%B8%B0)**
 
-**[6. 도커 이미지를 구글 클라우드 클러스터 엔진(GKE)에 배포, 외부 IP를 통한 접속 확인](#6-%EB%8F%84%EC%BB%A4-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A5%BC-%EA%B5%AC%EA%B8%80-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0-%EC%97%94%EC%A7%84gke%EC%97%90-%EB%B0%B0%ED%8F%AC-%EC%99%B8%EB%B6%80-ip%EB%A5%BC-%ED%86%B5%ED%95%9C-%EC%A0%91%EC%86%8D-%ED%99%95%EC%9D%B8)**
+**[6. 도커 이미지를 구글 클라우드 클러스터 엔진(GKE)에 배포, 외부 IP를 통한 접속 확인](#6-%EB%8F%84%EC%BB%A4-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A5%BC-%EA%B5%AC%EA%B8%80-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0-%EC%97%94%EC%A7%84gke%EC%97%90-%EB%B0%B0%ED%8F%AC)**
 
 **[7. GKE에 배포 후 로깅](#7-gke%EC%97%90-%EB%B0%B0%ED%8F%AC-%ED%9B%84-%EB%A1%9C%EA%B9%85)**
 
@@ -393,6 +393,7 @@ kubectl create secret generic cloudsql --from-literal=username=[PROXY_USERNAME] 
 ```
 
 [PROXY_USERNAME] = 데이터베이스 아이디
+
 [PASSWORD] = 데이터베이스 비밀번호
 
 
@@ -400,17 +401,59 @@ kubectl create secret generic cloudsql --from-literal=username=[PROXY_USERNAME] 
 
 **a. CloudSQL 프록시용 Docker 이미지 pull**
 
+b.gcr.io 는 [https://cloud.google.com/container-registry/](https://cloud.google.com/container-registry/)
+
+구글 클라우드의 비공개 Docker 저장소이다.
+
+구글 클라우드에서 미리 올려놓은 CloudSQL 프록시용 Docker 이미지를 pull 받는다.
+
+`docker pull b.gcr.io/cloudsql-docker/gce-proxy:1.05`
+
 
 **b. 도커 이미지 빌드**
+
+내 코드를 미리 만들어 놓은 Dockerfile을 이용하여 도커 이미지를 빌드 한다
+
+Dockerfile
+
+```
+FROM gcr.io/google_appengine/python
+
+RUN virtualenv -p python3 /env
+ENV PATH /env/bin:$PATH
+
+ADD requirements.txt /app/requirements.txt
+RUN /env/bin/pip install --upgrade pip && /env/bin/pip install -r /app/requirements.txt
+
+ADD . /app
+
+CMD gunicorn -b :$PORT 장고프로젝트이름.wsgi --timeout=300
+```
+
+
+`docker build -t gcr.io/<프로젝트아이디>/앱이름 .`
+
 
 
 **c. gcloud를 사용자 인증 정보 도우미로 사용**
 
 
+`gcloud auth configure-docker`
+
+
 **d. 도커 이미지 push**
 
+`docker build -t gcr.io/<프로젝트아이디>/앱이름 .`
 
-# 6. 도커 이미지를 구글 클라우드 클러스터 엔진(GKE)에 배포, 외부 IP를 통한 접속 확인 
+콘솔 왼쪽 메뉴 탭 -> Storage -> 브라우저
+
+버킷 이름 중 artifacts.<프로젝트아이디>.appspot.com
+
+안에 이미지들이 push 되어 있음
+
+
+
+# 6. 도커 이미지를 구글 클라우드 클러스터 엔진(GKE)에 배포 
 
 ### 6-1 
 
