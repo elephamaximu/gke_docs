@@ -36,6 +36,14 @@
 
 프로젝트 ID(프로젝트 이름과 다를 수 있음)를 메모. 프로젝트 ID는 명령어와 구성에 사용.
 
+프로젝트 결제 설정
+
+API 사용 설정
+
+**[API 사용 설정 안내 페이지->](https://cloud.google.com/apis/docs/enable-disable-apis?hl=ko)**
+
+사용하는 API 는 Cloud SQL API와 Compute Engine API
+
 **c. 서비스계정 만들기**
 
 왼쪽 탭에서 IAM 및 관리자 - 서비스 계정 선택
@@ -63,7 +71,7 @@ json 형식으로 key 로컬에 다운로드
 
 **b. 로컬 os 환경변수에 서비스계정 인증해놓기**
 
-**[1-1 c](#1-1-%EA%B5%AC%EA%B8%80-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC-%EA%B3%84%EC%A0%95-%EC%84%A4%EC%A0%95)** 서비스 계정 만들기에서 다운 받은 json 파일을 os 환경변수에 추가해서 서비스 계정을 인증
+**[1-1 C](#1-1-%EA%B5%AC%EA%B8%80-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC-%EA%B3%84%EC%A0%95-%EC%84%A4%EC%A0%95)**의 서비스 계정 만들기에서 다운 받은 json 파일을 os 환경변수에 추가해서 서비스 계정을 인증
 
 
 **[인증 시작하기 페이지 ->](https://cloud.google.com/docs/authentication/getting-started?hl=ko)**
@@ -72,11 +80,23 @@ cmd 창에서
 
 `set GOOGLE_APPLICATION_CREDENTIALS=[PATH]`
 
-[PATH] 안에 전체 경로와 json 이름을 넣어줌 
+[PATH] 안에 전체 경로와 json 이름을 쌍따옴표 없이 넣어줌 
 
 예) C:\xxx-xxx.json
 
 **c. vscode 플러그인 (선택사항)**
+
+vscode 플러그인 검색창에서 
+
+(1) Docker 0.62
+
+(2) Kubernetes 1.0.0
+
+(3) Cloud Code 0.0.8
+
+(4) jx-tools 0.0.45
+
+설치
 
 # 2. 로컬 코드와 구글 클라우드 플랫폼 Mysql 연동 테스트
 
