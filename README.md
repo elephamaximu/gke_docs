@@ -290,7 +290,7 @@ gsutil defacl set public-read gs://<버켓이름>
 
 #### a. django 어플리케이션 collect static 수행
 
-django 어플리케이션에서 정적파일을 한 폴더에 모아준다.
+- django 어플리케이션에서 정적파일을 한 폴더에 모아준다.
 
 ```
 
