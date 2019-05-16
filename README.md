@@ -177,6 +177,26 @@ cmd 창에서
 
 **a. django 어플리케이션 settings.py 데이터 베이스 코드 수정**
 
+```
+  DATABASES = {
+      'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': '데이터베이스 이름',
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        }
+    }
+```
+
+위 코드에서 
+
+`os.getenv('DATABASE_USER')`
+`os.getenv('DATABASE_PASSWORD')`
+
+는 로컬 환경변수에 저장한 데이터베이스 아이디와 비밀번호가 자동으로 들어가게 된다
+
 
 **b. django 어플리케이션 superuser 생성**
 
