@@ -383,7 +383,7 @@ GKE 앱과 Cloud SQL 간의 통신을 위한 secret 생성
 kubectl create secret generic cloudsql-oauth-credentials --from-file=credentials.json=[PATH_TO_CREDENTIAL_FILE].json
 ```
 
-CREDENTIAL_FILE은 **[1-1 C](#1-1-%EA%B5%AC%EA%B8%80-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC-%EA%B3%84%EC%A0%95-%EC%84%A4%EC%A0%95)**의 서비스 계정 만들기에서 다운 받은 json
+CREDENTIAL_FILE은 [1-1 C](#1-1-%EA%B5%AC%EA%B8%80-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC-%EA%B3%84%EC%A0%95-%EC%84%A4%EC%A0%95) 의 서비스 계정 만들기에서 다운 받은 json
 
 
 **b. 데이터베이스 액세스용**
@@ -398,37 +398,52 @@ kubectl create secret generic cloudsql --from-literal=username=[PROXY_USERNAME] 
 
 ### 5-3 도커 이미지 빌드하기
 
-a.
+**a. CloudSQL 프록시용 Docker 이미지 pull**
 
-b.
 
-c.
+**b. 도커 이미지 빌드**
+
+
+**c. gcloud를 사용자 인증 정보 도우미로 사용**
+
+
+**d. 도커 이미지 push**
+
 
 # 6. 도커 이미지를 구글 클라우드 클러스터 엔진(GKE)에 배포, 외부 IP를 통한 접속 확인 
 
 ### 6-1 
 
-a.
+**a.**
 
-b.
 
-c.
+**b.**
+
+
+**c.**
+
 
 ### 6-2 
 
-a.
+**a.**
 
-b.
 
-c.
+**b.**
+
+
+**c.**
+
 
 ### 6-3 
 
-a.
+**a.**
 
-b.
 
-c.
+**b.**
+
+
+**c.**
+
 
 # 7. GKE에 배포 후 로깅 
 
