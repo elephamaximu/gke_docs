@@ -127,6 +127,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/[FILE_NAME].json"
 - sql 프록시 다운 맥
 
 ```
+
 curl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64
 
 chmod +x cloud_sql_proxy
@@ -155,6 +156,7 @@ chmod +x cloud_sql_proxy
 - 인스턴스 연결 이름 확인
 
 ```
+
 # ConnectionName 이라 해서 자주 사용된다
 
 fair-gradient-xxxx:asia-northeast1:xxxx
@@ -215,6 +217,7 @@ export DATABASE_PASSWORD=<your-database-password>
 #### a. django 어플리케이션 settings.py 데이터 베이스 코드 수정
 
 ```
+
   DATABASES = {
       'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -225,6 +228,7 @@ export DATABASE_PASSWORD=<your-database-password>
         'PORT': '3306',
         }
     }
+
 ```
 
 
@@ -236,7 +240,7 @@ export DATABASE_PASSWORD=<your-database-password>
 
 - 로컬 django 어플리케이션 위치로 가서 데이터베이스 migrate 실행 해준다
 
-```python
+```
 
 python manage.py migrate
 
