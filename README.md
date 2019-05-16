@@ -1,6 +1,6 @@
 # DOCKER, GKE, jenkins x 통한 django 어플리케이션 클라우드 배포와 CI|CD
 
-**[참조 문서 - 구글 공식 다큐먼트](https://cloud.google.com/python/django/kubernetes-engine){ target="_blank" }**
+**[참조 문서 - 구글 공식 다큐먼트](https://cloud.google.com/python/django/kubernetes-engine/target="_blank")**
 
 ### 순서
 
