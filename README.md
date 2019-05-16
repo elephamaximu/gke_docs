@@ -372,7 +372,7 @@ python manage.py runserver
 
 #### b. 클라우드 스토리지 버킷에 작성한 cors-json-file 적용
 
-cmd창에서 cors-json-file.json 파일이 위치한 곳에서
+- cmd창에서 cors-json-file.json 파일이 위치한 곳에서
 
 ```
 
