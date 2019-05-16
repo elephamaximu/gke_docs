@@ -1,4 +1,4 @@
-# DOCKER, GKE, jenkins x 통한 django 어플리케이션 클라우드 배포와 CI|CD
+# DOCKER, GKE, jenkins x 통한 django 클라우드 배포 및 CI|CD
 
 **[참조 문서 - 구글 공식 다큐먼트](https://cloud.google.com/python/django/kubernetes-engine)**
 
@@ -26,38 +26,36 @@
 
 ### 1-1 구글 클라우드 플랫폼 계정 설정
 
-#### a. 구글 클라우드 플랫폼 회원 가입
+<br>
+##### a. 구글 클라우드 플랫폼 회원 가입
 
 **[구글 클라우드 플랫폼 페이지->](https://cloud.google.com/?hl=ko)**
 
+<br>
+##### b. 프로젝트 만들기
 
-#### b. 프로젝트 만들기
-
-콘솔에서 상단의 드롭다운 메뉴에서 프로젝트 만들기를 선택.
-
-프로젝트 ID(프로젝트 이름과 다를 수 있음)를 메모. 프로젝트 ID는 명령어와 구성에 사용.
-
-프로젝트 결제 설정
-
-API 사용 설정
+- 콘솔에서 상단의 드롭다운 메뉴에서 프로젝트 만들기를 선택.
+- 프로젝트 ID(프로젝트 이름과 다를 수 있음)를 메모. 프로젝트 ID는 명령어와 구성에 사용.
+- 프로젝트 결제 설정
+- API 사용 설정
 
 **[API 사용 설정 안내 페이지->](https://cloud.google.com/apis/docs/enable-disable-apis?hl=ko)**
 
-사용하는 API 는 Cloud SQL API와 Compute Engine API
+- 사용하는 API 는 Cloud SQL API와 Compute Engine API
 
+<br>
+##### c. 서비스계정 만들기
 
-#### c. 서비스계정 만들기
+- 콘솔 왼쪽 메뉴 탭에서 IAM 및 관리자 -> 서비스 계정 선택
 
-콘솔 왼쪽 메뉴 탭에서 IAM 및 관리자 -> 서비스 계정 선택
+- 역할 선택 
+1. Cloud SQL관리자
+2. storage 저장소 관리자
+3. Kubernetes Engin 관리자
 
-역할 선택 
-(1) Cloud SQL관리자
-(2) storage 저장소 관리자
-(3) Kubernetes Engin 관리자
+- json 형식으로 key 로컬에 다운로드
 
-json 형식으로 key 로컬에 다운로드
-
-
+<br>
 ### 1-2 구글 플랫폼 로컬 연동 환경 구축
 
 **a. Cloud SDK 로컬에 설치**
