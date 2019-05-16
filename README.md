@@ -286,7 +286,7 @@ gsutil defacl set public-read gs://<버켓이름>
 ```
 
 
-### 3-2 구글 Storage 버킷으로 djnago static 파일 연동하기
+### 3-2 구글 Storage 버킷으로 django static 파일 연동하기
 
 #### a. django 어플리케이션 collect static 수행
 
@@ -387,81 +387,90 @@ gsutil cors get gs://<버킷이름>
 
 ```
 
-
 # 5. Kubernetes 엔진 클러스터 환경 준비하기
 
 ### 5-1 Kubernetes 엔진 클러스터 생성하기
 
-**a. GKE 초기화**
+#### a. GKE 초기화
 
-콘솔에서 왼쪽 메뉴 탭 Kubernetes Engine -> 클러스터 클릭
+- 콘솔에서 왼쪽 메뉴 탭 Kubernetes Engine -> 클러스터 클릭
 
-'Kubernetes Engine을 준비하는 중이며 1분 이상 걸릴 수 있습니다' 
+- 'Kubernetes Engine을 준비하는 중이며 1분 이상 걸릴 수 있습니다' 메시지가 사라질 때까지 기다린다
 
-메시지가 사라질 때까지 기다림.
+#### b. GKE 생성
 
-**b. GKE 생성**
-
-cmd 창에서 GKE 클러스터 생성
+- cmd 창에서 GKE 클러스터 생성
 
 ```
+
 gcloud container clusters create <클러스터이름> --scopes "https://www.googleapis.com/auth/userinfo.email","cloud-platform" --num-nodes 4 --zone "asia-northeast1-a"
+
 ```
 
-콘솔창에서 클러스터가 생성 되었는지 확인
+- 구글 클라우드 콘솔창에서 클러스터가 생성 되었는지 확인
 
 
-**c. gcloud와 kubectl 상호작용 check**
+#### c. gcloud와 kubectl 상호작용 check
 
-cmd 창에서 
+- cmd 창에서 
 
-`gcloud container clusters get-credentials <클러스터이름> --zone "asia-northeast1-a"`
+```
+
+gcloud container clusters get-credentials <클러스터이름> --zone "asia-northeast1-a"
+
+```
 
 
 ### 5-2 GKE 앱과 Cloud SQL간의 통신 환경 준비하기
 
-GKE 앱과 Cloud SQL 간의 통신을 위한 secret 생성
+- GKE 앱과 Cloud SQL 간의 통신을 위한 secret 생성
 
-**a. 인스턴스 수준 액세스(연결)**
+#### a. 인스턴스 수준 액세스(연결)
 
 ```
+
 kubectl create secret generic cloudsql-oauth-credentials --from-file=credentials.json=[PATH_TO_CREDENTIAL_FILE].json
-```
-
-CREDENTIAL_FILE은 [1-1 C](#1-1-%EA%B5%AC%EA%B8%80-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC-%EA%B3%84%EC%A0%95-%EC%84%A4%EC%A0%95) 의 서비스 계정 만들기에서 다운 받은 json
-
-
-**b. 데이터베이스 액세스용**
 
 ```
+
+- CREDENTIAL_FILE은 [1-1 C](#1-1-%EA%B5%AC%EA%B8%80-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC-%EA%B3%84%EC%A0%95-%EC%84%A4%EC%A0%95) 의 서비스 계정 만들기에서 다운 받은 json
+
+
+#### b. 데이터베이스 액세스용
+
+```
+
 kubectl create secret generic cloudsql --from-literal=username=[PROXY_USERNAME] --from-literal=password=[PASSWORD]
+
 ```
 
-[PROXY_USERNAME] = 데이터베이스 아이디
+- [PROXY_USERNAME] = 데이터베이스 아이디
 
-[PASSWORD] = 데이터베이스 비밀번호
+- [PASSWORD] = 데이터베이스 비밀번호
 
 
 ### 5-3 도커 이미지 빌드하기
 
-**a. CloudSQL 프록시용 Docker 이미지 pull**
+#### a. CloudSQL 프록시용 Docker 이미지 pull
 
-b.gcr.io 는 [https://cloud.google.com/container-registry/](https://cloud.google.com/container-registry/)
+- b.gcr.io 는 [https://cloud.google.com/container-registry/](https://cloud.google.com/container-registry/) 구글 클라우드의 비공개 Docker 저장소이다.
 
-구글 클라우드의 비공개 Docker 저장소이다.
+- 구글 클라우드에서 미리 올려놓은 CloudSQL 프록시용 Docker 이미지를 pull 받는다.
 
-구글 클라우드에서 미리 올려놓은 CloudSQL 프록시용 Docker 이미지를 pull 받는다.
+```
 
-`docker pull b.gcr.io/cloudsql-docker/gce-proxy:1.05`
+docker pull b.gcr.io/cloudsql-docker/gce-proxy:1.05
 
+```
 
-**b. 도커 이미지 빌드**
+#### b. 도커 이미지 빌드
 
-내 코드를 미리 만들어 놓은 Dockerfile을 이용하여 도커 이미지를 빌드 한다
+- 내 코드를 미리 만들어 놓은 Dockerfile을 이용하여 도커 이미지를 빌드 한다
 
 Dockerfile
 
 ```
+
 FROM gcr.io/google_appengine/python
 
 RUN virtualenv -p python3 /env
@@ -473,38 +482,47 @@ RUN /env/bin/pip install --upgrade pip && /env/bin/pip install -r /app/requireme
 ADD . /app
 
 CMD gunicorn -b :$PORT 장고프로젝트이름.wsgi --timeout=300
+
+```
+
+```
+
+# cmd 창에서
+
+docker build -t gcr.io/<프로젝트아이디>/앱이름 .
+
+```
+
+#### c. gcloud를 사용자 인증 정보 도우미로 사용
+
+```
+
+gcloud auth configure-docker
+
 ```
 
 
-`docker build -t gcr.io/<프로젝트아이디>/앱이름 .`
+#### d. 도커 이미지 push
 
+```
 
+docker push gcr.io/<프로젝트아이디>/앱이름
 
-**c. gcloud를 사용자 인증 정보 도우미로 사용**
+```
 
+- 콘솔 왼쪽 메뉴 탭 -> Storage -> 브라우저
 
-`gcloud auth configure-docker`
-
-
-**d. 도커 이미지 push**
-
-`docker build -t gcr.io/<프로젝트아이디>/앱이름 .`
-
-콘솔 왼쪽 메뉴 탭 -> Storage -> 브라우저
-
-버킷 이름 중 artifacts.<프로젝트아이디>.appspot.com
-
-안에 이미지들이 push 되어 있음
-
+- 버킷 이름 중 artifacts.<프로젝트아이디>.appspot.com 안에 이미지들이 push 되어 있음
 
 
 # 6. 도커 이미지를 구글 클라우드 클러스터 엔진(GKE)에 배포 
 
 ### 6-1 GKE 리소스 생성 및 배포
 
-**a. GKE 리소스 생성**
+#### a. GKE 리소스 생성
 
-앱이름.yaml 파일 작성
+- 앱이름.yaml 파일 작성
+
 
 ```
 
@@ -581,24 +599,34 @@ spec:
 
 ```
 
-작성한 앱이름.yaml을 이용하여 GKE 리소스 생성
+- 작성한 앱이름.yaml을 이용하여 GKE 리소스 생성
 
-`kubectl create -f 앱이름.yaml`
+```
+kubectl create -f 앱이름.yaml
 
-
-**b. 포드의 상태 확인**
-
-생성 후 클러스터에 3개의 앱이름 pods 가 떠야 한다
-
-`kubectl get pods`
+```
 
 
-**c. 배포 IP 확인**
+#### b. 포드의 상태 확인
 
-포드가 준비되면 부하 분산기의 공개 IP 주소를 가져 올 수 있다.
+- 생성 후 클러스터에 3개의 앱이름 pods 가 떠야 한다
 
-`kubectl get services 앱이름`
+```
 
+kubectl get pods
+
+```
+
+
+#### c. 배포 IP 확인
+
+- 포드가 준비되면 부하 분산기의 공개 IP 주소를 가져 올 수 있다.
+
+```
+
+kubectl get services 앱이름
+
+```
 
 # 7. GKE에 배포 후 로깅 
 
