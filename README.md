@@ -455,37 +455,104 @@ CMD gunicorn -b :$PORT 장고프로젝트이름.wsgi --timeout=300
 
 # 6. 도커 이미지를 구글 클라우드 클러스터 엔진(GKE)에 배포 
 
-### 6-1 
+### 6-1 GKE 리소스 생성 및 배포
 
-**a.**
+**a. GKE 리소스 생성**
+
+앱이름.yaml 파일 작성
+
+```
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: appname
+  labels:
+    app: appname
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: appname
+    spec:
+      containers:
+      - name: appname
+        image: gcr.io/[projectID]/[appname]
+        imagePullPolicy: Always
+        env:
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql
+                  key: username
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql
+                  key: password
+        ports:
+        - containerPort: 8080
+
+      - image: b.gcr.io/cloudsql-docker/gce-proxy:1.05
+        name: cloudsql-proxy
+        command: ["/cloud_sql_proxy", "--dir=/cloudsql",
+                  "-instances=[ConnectionName]=tcp:3306",
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        volumeMounts:
+          - name: cloudsql-oauth-credentials
+            mountPath: /secrets/cloudsql
+            readOnly: true
+          - name: ssl-certs
+            mountPath: /etc/ssl/certs
+          - name: cloudsql
+            mountPath: /cloudsql
+      volumes:
+        - name: cloudsql-oauth-credentials
+          secret:
+            secretName: cloudsql-oauth-credentials
+        - name: ssl-certs
+          hostPath:
+            path: /etc/ssl/certs
+        - name: cloudsql
+          emptyDir:
 
 
-**b.**
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: appname
+  labels:
+    app: appname
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: appname
+
+```
+
+작성한 앱이름.yaml을 이용하여 GKE 리소스 생성
+
+`kubectl create -f 앱이름.yaml`
 
 
-**c.**
+**b. 포드의 상태 확인**
+
+생성 후 클러스터에 3개의 앱이름 pods 가 떠야 한다
+
+`kubectl get pods`
 
 
-### 6-2 
+**c. 배포 IP 확인**
 
-**a.**
+포드가 준비되면 부하 분산기의 공개 IP 주소를 가져 올 수 있다.
 
-
-**b.**
-
-
-**c.**
-
-
-### 6-3 
-
-**a.**
-
-
-**b.**
-
-
-**c.**
+`kubectl get services 앱이름`
 
 
 # 7. GKE에 배포 후 로깅 
@@ -506,13 +573,6 @@ b.
 
 c.
 
-### 7-3 
-
-a.
-
-b.
-
-c.
 
 # 8. GKE에 배포 후 Domain Name 부여하기 
 
@@ -524,6 +584,7 @@ b.
 
 c.
 
+
 ### 8-2 
 
 a.
@@ -532,13 +593,6 @@ b.
 
 c.
 
-### 8-3 
-
-a.
-
-b.
-
-c.
 
 # 9. jenkins x를 통한 지속적인 CI|CD 
 
@@ -557,12 +611,3 @@ a.
 b.
 
 c.
-
-### 9-3 
-
-a.
-
-b.
-
-c.
-
