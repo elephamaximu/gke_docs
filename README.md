@@ -267,12 +267,19 @@ django 어플리케이션에서 정적파일을 한 폴더에 모아준다.
 `STATIC_URL="http://storage.googleapis.com/<버킷이름>/static/"`
 
 
-**d. 기타 settings.py 수정**
+**d. 기타 settings.py 수정 및 로컬에서 서버실행**
 
 `DEBUG = True`
 
 `ALLOWED_HOSTS = ['*']`
 
+`python manage.py runserver`
+
+로컬에서 django 어플리케이션이 돌지만 
+
+데이터베이스는 구글 클라우드 mysql과 연동 되어 있고
+
+Static file 은 구글 클라우드 storage 에서 전송 해주는 상태이다.
 
 # 4. 정적(static) 파일 스토리지 CORS 헤더 삽입
 
