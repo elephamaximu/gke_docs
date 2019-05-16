@@ -337,9 +337,11 @@ gsutil cors get gs://<버킷이름>
 ```
 
 
---------- 로컬 코드를 도커 이미지화해서 GKE에 배포 하기 위해서 필요한 파일은 3개 이다. ----------
 
-(1)Dockerfile (2)앱이름.yaml (3)requirements.txt
+**------------------ 로컬 코드를 도커 이미지화해서 GKE에 배포 하기 위해서 필요한 파일은 3개 이다. ---------------**
+
+**(1)Dockerfile (2)앱이름.yaml (3)requirements.txt**
+
 
 
 # 5. Kubernetes 엔진 클러스터 환경 준비하기
