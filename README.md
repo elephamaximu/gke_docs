@@ -42,6 +42,8 @@
 
   **[API 사용 설정 안내 페이지->](https://cloud.google.com/apis/docs/enable-disable-apis?hl=ko)**
 
+- **[필요한 API 자동 추가 설정 링크->](https://console.cloud.google.com/flows/enableapi?apiid=sqladmin.googleapis.com,compute-component.googleapis.com&redirect=https://cloud.google.com/python/django/kubernetes-engine&showconfirmation=true&_ga=2.178077344.-485475361.1553476999&_gac=1.15660484.1554446214.Cj0KCQjw1pblBRDSARIsACfUG13Y4pXkt_QN1KLIs3SPvmsK7UNSa14mvNwCn5xTCul5mGtECpBu7xkaAuhyEALw_wcB)**
+
 - 사용하는 API 는 Cloud SQL API와 Compute Engine API
 
 #### c. 서비스계정 만들기
@@ -66,7 +68,7 @@
 
 - 시스템의 Python 2가 Python 2.7.9 이상의 출시 버전으로 설치되지 않은 경우 Bundled Python(Python 포함) 설치 옵션 선택
 
-- 설치 프로그램에서 터미널 창을 시작하고 gcloud init 명령어 실행
+- 설치 완료 후 터미널 창을 시작하고 gcloud init 명령어 실행
 
 ```
 
@@ -116,6 +118,8 @@ export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/[FILE_NAME].json"
 
 #### a. SQL 프록시 설치(로컬과 클라우드 데이터 베이스 연동 프로그램)
 
+- **[Cloud SQL 프록시를 사용하여 mysql 클라이언트 연결 안내 페이지 ->](https://cloud.google.com/sql/docs/mysql/connect-admin-proxy?hl=ko)**
+
 - **[sql 프록시 다운 링크 윈도우](https://dl.google.com/cloudsql/cloud_sql_proxy_x64.exe)**
 
 - 다른 이름으로 저장 하기 해서 `cloud_sql_proxy.exe` 로 이름을 바꿔서 다운
@@ -131,7 +135,7 @@ chmod +x cloud_sql_proxy
 
 #### b. Cloud SQL 인스턴스 생성
 
-- 콘솔 왼쪽 메뉴 탭에서 SQL 클릭
+- 구글 클라우드 콘솔 왼쪽 메뉴 탭에서 SQL 클릭
 
 - Mysql 선택
 
@@ -146,9 +150,9 @@ chmod +x cloud_sql_proxy
 
 #### c. connectionName 확인
 
-- 생성 된 후 해당 인스턴스 ID를 클릭하여 관리 화면에 접속
+- 생성 된 후 콘솔 -> SQL 에서 해당 인스턴스 ID를 클릭하여 관리 화면에 접속
 
-- 인스턴스 연결 이름
+- 인스턴스 연결 이름 확인
 
 ```
 # ConnectionName 이라 해서 자주 사용된다
@@ -166,38 +170,49 @@ fair-gradient-xxxx:asia-northeast1:xxxx
 cloud_sql_proxy.exe -instances="[YOUR_INSTANCE_CONNECTION_NAME]"=tcp:3306
 
 ```
-- 가운데 [YOUR_INSTANCE_CONNECTION_NAME] 에는 복사 해 놓은 ConnectionName을 붙여 넣는다.
+- 가운데 [YOUR_INSTANCE_CONNECTION_NAME] 에는 확인 해 놓은 ConnectionName을 붙여 넣는다.
 
 - 로컬 3306 포트에 이미 Mysql 서버가 돌고 있으면 충돌이 나므로 로컬 Mysql 서버는 꺼놓고 실행한다.
 
 - 실행 후 로컬 에서 구글 클라우드 SQL을 사용하는 동안에는 계속 켜둔다.
 
 
-**e. 데이터베이스 생성 및 사용자 생성**
+#### e. 데이터베이스 생성 및 사용자 생성
 
-콘솔 SQL -> 내 인스턴스 ID 로 들어와서 상단 데이터베이스 탭으로 들어간다
+- 콘솔 -> SQL -> 내 인스턴스 ID 로 들어와서 상단 데이터베이스 탭으로 들어간다
 
-데이터베이스 만들기를 클릭하여 데이터베이스를 생성해준다.
+- 데이터베이스 만들기를 클릭하여 데이터베이스를 생성해준다.
 
-상단 사용자 탭으로 들어가서 사용자를 생성 할 수 있다.(root만 사용시 skip 가능)
+- 상단 사용자 탭으로 들어가서 사용자를 생성 할 수 있다.(root만 사용시 skip 가능)
 
 
-**f. 로컬 os 환경변수에 구글 SQL 인스턴스 ID와 PASSWORD 저장하기**
+#### f. 로컬 os 환경변수에 구글 SQL 인스턴스 ID와 PASSWORD 저장하기
 
-위에서 만든 Mysql 인스턴스 내 데이터베이스 접속 가능한 ID와 PASSWORD를 로컬 os 환경변수로 지정해준다
+- 위에서 만든 Mysql 인스턴스 내 데이터베이스 접속 가능한 ID와 PASSWORD를 로컬 os 환경변수로 지정해준다
 
-사용자를 생성했다면 사용자 ID와 PASSWORD, 생성하지 않았다면 ID=root, PASSWORD=인스턴스 생성시 비밀번호
+- 사용자를 생성했다면 사용자 ID와 PASSWORD, 생성하지 않았다면 ID=root, PASSWORD=인스턴스 생성시 비밀번호
 
-cmd 창에서
+- 윈도우는 cmd 창에서
 
-`set DATABASE_USER=<your-database-user>`
+```
 
-`set DATABASE_PASSWORD=<your-database-password>`
+set DATABASE_USER=<your-database-user>`
+set DATABASE_PASSWORD=<your-database-password>`
 
+```
+
+- 맥은 터미널에서
+
+```
+
+export DATABASE_USER=<your-database-user>
+export DATABASE_PASSWORD=<your-database-password>
+
+```
 
 ### 2-2 django 어플리케이션 세팅
 
-**a. django 어플리케이션 settings.py 데이터 베이스 코드 수정**
+#### a. django 어플리케이션 settings.py 데이터 베이스 코드 수정
 
 ```
   DATABASES = {
@@ -212,26 +227,32 @@ cmd 창에서
     }
 ```
 
-위 코드에서 
 
-`os.getenv('DATABASE_USER')`
+- os.getenv('DATABASE_USER')
 
-`os.getenv('DATABASE_PASSWORD')`
+- os.getenv('DATABASE_PASSWORD')
 
-는 로컬 환경변수에 저장한 데이터베이스 아이디와 비밀번호가 자동으로 들어가게 된다
+- 는 로컬 환경변수에 저장한 데이터베이스 아이디와 비밀번호가 자동으로 들어가게 된다
 
-로컬 django 어플리케이션 위치로 가서 데이터베이스 migrate 실행 해준다
+- 로컬 django 어플리케이션 위치로 가서 데이터베이스 migrate 실행 해준다
 
-`python manage.py migrate`
+```python
 
-**b. django 어플리케이션 superuser 생성**
+python manage.py migrate
 
-migrate를 통해 구글 클라우드 SQL과 내 로컬 django 어플리케이션이 연동 되어 있으므로
+```
 
-django 어플리케이션 admin 창에서 사용할 superuser를 생성해준다
+#### b. django 어플리케이션 superuser 생성
 
-`python manage.py createsuperuser`
+- migrate를 통해 구글 클라우드 SQL과 내 로컬 django 어플리케이션이 연동 되어 있으므로
 
+- django 어플리케이션 admin 창에서 사용할 superuser를 생성해준다
+
+```
+
+python manage.py createsuperuser
+
+```
 
 # 3. 로컬 코드와 구글 클라우드 플랫폼 Storage 연동을 통한 static 파일 클라우드화 테스트
 
