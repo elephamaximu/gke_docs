@@ -73,6 +73,7 @@ json 형식으로 key 로컬에 다운로드
 `gcloud init`
 
 <br>
+
 **b. 로컬 os 환경변수에 서비스계정 인증해놓기**
 
 **[1-1 C](#1-1-%EA%B5%AC%EA%B8%80-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC-%EA%B3%84%EC%A0%95-%EC%84%A4%EC%A0%95)**의 서비스 계정 만들기에서 다운 받은 json 파일을 os 환경변수에 추가해서 서비스 계정을 인증
@@ -89,8 +90,11 @@ cmd 창에서
 예) C:\xxx-xxx.json
 
 <br>
+
 **c. vscode 플러그인 (선택사항)**
+
 <br>
+
 vscode 플러그인 검색창에서 
 
 (1) Docker 0.62
