@@ -281,6 +281,7 @@ django 어플리케이션에서 정적파일을 한 폴더에 모아준다.
 
 Static file 은 구글 클라우드 storage 에서 전송 해주는 상태이다.
 
+
 # 4. 정적(static) 파일 스토리지 CORS 헤더 삽입
 
 ### 4-1 Cors-json
