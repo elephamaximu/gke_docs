@@ -637,6 +637,12 @@ kubectl get services 앱이름
 
 #### a.
 
+```
+
+kubectl logs <your-pod-id>
+
+```
+
 #### b.
 
 
