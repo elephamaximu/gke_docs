@@ -405,6 +405,8 @@ gsutil cors get gs://<버킷이름>
 
 gcloud container clusters create <클러스터이름> --scopes "https://www.googleapis.com/auth/userinfo.email","cloud-platform" --num-nodes 4 --zone "asia-northeast1-a"
 
+--enable-autoscaling --min-nodes 1 --max-nodes 6
+
 ```
 
 - 구글 클라우드 콘솔창에서 클러스터가 생성 되었는지 확인
@@ -650,6 +652,11 @@ kubectl get services 앱이름
 #### a.
 
 #### b.
+
+- Stackdriver 로그 기록	
+
+- Stackdriver 모니터링	
+
 
 # 8. GKE에 배포 후 Domain Name 부여하기 
 
