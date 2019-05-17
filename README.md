@@ -692,15 +692,44 @@ kubectl logs <your-pod-id>
 
 - **[chocolatey](https://chocolatey.org/install#install-with-cmdexe)**   
 
+
+- 윈도우 검색 cmd -> 오른쪽 버튼 관리자 권한으로 실행
+
+
+```
+
+@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+
+
+```
+
 #### b. HELM 설치하기
 
+- **[helm 공식 페이지 ->](https://helm.sh/)**
+
 - **[helm for window](https://github.com/helm/helm/blob/master/docs/install.md)**
+
+```
+
+choco install kubernetes-helm
+
+```
 
 - The easiest way to install tiller into the cluster is simply to run helm init. This will validate that helm's local environment is set up correctly (and set it up if necessary). Then it will connect to whatever cluster kubectl connects to by default (kubectl config view). Once it connects, it will install tiller into the kube-system namespace.
 
 #### c. jenkins x 설치하기
 
+- **[jenkins x 공식페이지 ->](https://jenkins-x.io/)**
+
 - **[jenkins x for window](https://jenkins-x.io/getting-started/install/)**
+
+```
+
+choco install jenkins-x
+
+choco upgrade jenkins-x
+
+```
 
 ### 9-2 
 
