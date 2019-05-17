@@ -673,13 +673,19 @@ kubectl get services 앱이름
 
 # 9. jenkins x를 통한 지속적인 CI|CD 
 
-### 9-1 
+### 9-1 환경설정
 
-#### a.
+#### a. chocolatey 설치하기
 
-#### b.
+- **[chocolatey](https://chocolatey.org/install#install-with-cmdexe)**   
 
-#### c.
+#### b. HELM 설치하기
+
+- **[helm for window](https://github.com/helm/helm/blob/master/docs/install.md)**
+
+#### c. jenkins x 설치하기
+
+- **[jenkins x for window](https://jenkins-x.io/getting-started/install/)**
 
 ### 9-2 
 
