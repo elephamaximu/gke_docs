@@ -696,6 +696,8 @@ kubectl logs <your-pod-id>
 
 - **[helm for window](https://github.com/helm/helm/blob/master/docs/install.md)**
 
+- The easiest way to install tiller into the cluster is simply to run helm init. This will validate that helm's local environment is set up correctly (and set it up if necessary). Then it will connect to whatever cluster kubectl connects to by default (kubectl config view). Once it connects, it will install tiller into the kube-system namespace.
+
 #### c. jenkins x 설치하기
 
 - **[jenkins x for window](https://jenkins-x.io/getting-started/install/)**
