@@ -198,8 +198,8 @@ cloud_sql_proxy.exe -instances="[YOUR_INSTANCE_CONNECTION_NAME]"=tcp:3306
 
 ```
 
-set DATABASE_USER=<your-database-user>`
-set DATABASE_PASSWORD=<your-database-password>`
+set DATABASE_USER=<your-database-user>
+set DATABASE_PASSWORD=<your-database-password>
 
 ```
 
