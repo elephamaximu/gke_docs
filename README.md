@@ -344,6 +344,23 @@ python manage.py runserver
 - Static file 은 구글 클라우드 storage 에서 전송 해주는 상태이다.
 
 
+#### d. 기타 settings.py 수정 및 로컬에서 서버실행
+
+- 구글 스토리지를 장고 프로젝트 기본 파일 스토리지로 지정해서 media파일 스토리지에 업로드 하기
+
+
+- 라이브러리 django-storages를 설치하는데 아래 명령어로 설치해야 진행 됨
+
+
+'''
+
+pip install -e git+https://github.com/jschneier/django-storages.git@b441b74a17a46eb87ee4b10f60774b9a080c0fe1#egg=django_storages
+
+'''
+
+- settings.py 수정
+
+
 # 4. 정적(static) 파일 스토리지 CORS 헤더 삽입
 
 ### 4-1 Cors-json
