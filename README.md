@@ -352,11 +352,11 @@ python manage.py runserver
 - 라이브러리 django-storages를 설치하는데 아래 명령어로 설치해야 진행 됨
 
 
-'''
+```
 
 pip install -e git+https://github.com/jschneier/django-storages.git@b441b74a17a46eb87ee4b10f60774b9a080c0fe1#egg=django_storages
 
-'''
+```
 
 - settings.py 수정
 
