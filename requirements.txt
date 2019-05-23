@@ -48,3 +48,5 @@ Keras-Applications==1.0.7
 Keras-Preprocessing==1.0.9
 librosa==0.5.1
 google-cloud-storage==1.15.0
+pymysql
+-e git+https://github.com/jschneier/django-storages.git@b441b74a17a46eb87ee4b10f60774b9a080c0fe1#egg=django_storages
