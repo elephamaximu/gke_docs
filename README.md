@@ -351,6 +351,11 @@ python manage.py runserver
 
 - 라이브러리 django-storages를 설치하는데 아래 명령어로 설치해야 진행 됨
 
+```
+
+https://django-storages.readthedocs.io/en/latest/backends/gcloud.html
+
+```
 
 ```
 
@@ -359,6 +364,13 @@ pip install -e git+https://github.com/jschneier/django-storages.git@b441b74a17a4
 ```
 
 - settings.py 수정
+
+```
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = 
+GS_DEFAULT_ACL = 'publicRead'
+```
 
 
 # 4. 정적(static) 파일 스토리지 CORS 헤더 삽입
